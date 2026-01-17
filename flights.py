@@ -2,8 +2,10 @@ from amadeus import Client, ResponseError
 from dotenv import load_dotenv
 import os
 import csv
+from datetime import datetime, timedelta
+import random
 
-# ========== 1. Load environment variables ==========
+# First step : Load API credentials
 load_dotenv()
 API_KEY = os.getenv("AMADEUS_API_KEY")
 API_SECRET = os.getenv("AMADEUS_API_SECRET")
@@ -11,52 +13,60 @@ API_SECRET = os.getenv("AMADEUS_API_SECRET")
 if not API_KEY or not API_SECRET:
     raise Exception("Please set your API key and secret in the .env file")
 
-# ========== 2. Configure Amadeus client ==========
-amadeus = Client(
-    client_id=API_KEY,
-    client_secret=API_SECRET
-)
+# Second step : Configure Amadeus client
+amadeus = Client(client_id=API_KEY, client_secret=API_SECRET)
 
-# ========== 3. Set search parameters ==========
-origin = "YYZ"  # Your city (Toronto)
-destinations = ["JFK", "LAX", "MIA"]  # List of destinations
-departure_date = "2026-06-01"
-adults = 1
+# Third step : User input
+departure_airport = input("Enter your departure airport code (e.g., YVR): ").upper()
+destinations = ["YYZ", "JFK", "LAX", "ORD", "LHR", "CDG", "FRA", "NRT", "SYD", "DXB", "HKG", "SFO"]  # 12 popular destinations
 
-# Prepare CSV file
-csv_file = "flights.csv"
-with open(csv_file, "w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerow(["Origin", "Destination", "Airline", "Flight Number", "Departure", "Arrival", "Price"])
+# 4th step : Departure and return dates
+departure_date = datetime.now() + timedelta(weeks=2)
+vacation_length = random.randint(3, 7)  # vacation 3–7 days
+return_date = departure_date + timedelta(days=vacation_length)
 
-    # ========== 3. Loop over destinations ==========
-    for dest in destinations:
-        try:
-            response = amadeus.shopping.flight_offers_search.get(
-                originLocationCode=origin,
-                destinationLocationCode=dest,
-                departureDate=departure_date,
-                adults=adults
-            )
+departure_str = departure_date.strftime("%Y-%m-%d")
+return_str = return_date.strftime("%Y-%m-%d")
 
-            # Sort flights by price (cheapest first)
-            offers = sorted(response.data, key=lambda x: float(x["price"]["total"]))
+# 5th step : CSV setup
+csv_file = "cheapest_roundtrips.csv"
 
-            # Print and save each flight
-            for flight in offers:
-                itinerary = flight["itineraries"][0]["segments"][0]
-                airline = itinerary["carrierCode"]
-                flight_number = itinerary["number"]
-                departure = itinerary["departure"]["at"]
-                arrival = itinerary["arrival"]["at"]
-                price = flight["price"]["total"]
+# Create CSV if it doesn't exist
+if not os.path.exists(csv_file):
+    with open(csv_file, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Origin", "Destination", "DepartureDate", "ReturnDate", "Price"])
 
-                print(f"{origin} → {dest} | {airline} {flight_number}: {departure} → {arrival} | Price: {price}")
+# 6th step : Loop over destinations
+for dest in destinations:
+    try:
+        # Fetch flight offers (max 50 for coverage)
+        response = amadeus.shopping.flight_offers_search.get(
+            originLocationCode=departure_airport,
+            destinationLocationCode=dest,
+            departureDate=departure_str,
+            returnDate=return_str,
+            adults=1,
+            max=50
+        )
 
-                # Write to CSV
-                writer.writerow([origin, dest, airline, flight_number, departure, arrival, price])
+        if response.data:
+            # Get the cheapest flight for this destination
+            cheapest_flight = min(response.data, key=lambda f: float(f["price"]["total"]))
+            current_price = float(cheapest_flight["price"]["total"])
 
-        except ResponseError as error:
-            print(f"Error searching {origin} → {dest}: {error.response.body}")
+            # Print cheapest flight for this destination
+            print(f"Cheapest round-trip: {departure_airport} → {dest} → {departure_airport} | Price: {current_price}")
 
-print(f"\nAll flight data saved to {csv_file}")
+            # Save to CSV
+            with open(csv_file, "a", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow([departure_airport, dest, departure_str, return_str, current_price])
+
+        else:
+            print(f"No flights found for {departure_airport} → {dest}")
+
+    except ResponseError as e:
+        print(f"Error searching {departure_airport} → {dest}: {e.response.body}")
+
+print(f"\nAll cheapest round-trip flights saved to {csv_file}")
