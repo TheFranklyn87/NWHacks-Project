@@ -18,7 +18,7 @@ amadeus = Client(client_id=API_KEY, client_secret=API_SECRET)
 
 # Third step : User input
 departure_airport = input("Enter your departure airport code (e.g., YVR): ").upper()
-destinations = ["YYZ", "JFK", "LAX", "ORD", "LHR", "CDG", "FRA", "NRT", "SYD", "DXB", "HKG", "SFO"]  # 12 popular destinations
+destinations = ["YYZ", "JFK", "LAX", "ORD", "LHR", "CDG", "FRA", "NRT", "SYD", "DXB", "HKG", "SFO"]
 
 # 4th step : Departure and return dates
 departure_date = datetime.now() + timedelta(weeks=2)
@@ -40,7 +40,6 @@ if not os.path.exists(csv_file):
 # 6th step : Loop over destinations
 for dest in destinations:
     try:
-        # Fetch flight offers (max 50 for coverage)
         response = amadeus.shopping.flight_offers_search.get(
             originLocationCode=departure_airport,
             destinationLocationCode=dest,
@@ -51,14 +50,11 @@ for dest in destinations:
         )
 
         if response.data:
-            # Get the cheapest flight for this destination
             cheapest_flight = min(response.data, key=lambda f: float(f["price"]["total"]))
             current_price = float(cheapest_flight["price"]["total"])
 
-            # Print cheapest flight for this destination
             print(f"Cheapest round-trip: {departure_airport} → {dest} → {departure_airport} | Price: {current_price}")
 
-            # Save to CSV
             with open(csv_file, "a", newline="") as f:
                 writer = csv.writer(f)
                 writer.writerow([departure_airport, dest, departure_str, return_str, current_price])
