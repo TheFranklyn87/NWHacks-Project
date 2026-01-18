@@ -1,11 +1,3 @@
-/* General */
-.App {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-  }
-  
   /* Topbar */
   .topbar {
     display: flex;
@@ -32,21 +24,36 @@
   .topbar-buttons button:hover {
     background-color: #e0e0ff;
   }
+/* General */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* prevents horizontal scroll */
+  }
+  
+  .App {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
   
   /* Hero Section */
-
   .hero {
     height: 100vh;
-    width: 100vw;
+    width: 100%; /* change from 100vw to 100% */
     background: url('/src/assets/images/hero.jpg') center/cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    color: white; /* for text on top */
+    color: white;
     text-align: center;
+    overflow: hidden; /* prevents any child overflow from causing scroll */
   }
   
+  /* Hero overlay and input remain the same */
   .hero-overlay {
     background-color: rgba(0,0,0,0.35);
     color: #fff;
@@ -305,5 +312,63 @@
       grid-template-columns: 1fr;
       text-align: center;
     }
+    
+    /* ===== Results Page ===== */
+
+.results-page {
+    padding: 4rem 2rem;
+    background: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .results-page h2 {
+    margin-bottom: 2rem;
+  }
+  
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .result-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .result-card h3 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .price {
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+  
+  .avg {
+    color: #666;
+  }
+  
+  .deal {
+    color: #16a34a;
+    font-weight: 600;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .results-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .results-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
   }
   
