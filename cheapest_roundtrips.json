@@ -1,0 +1,10 @@
+[
+  {
+    "Origin": "YVR",
+    "Destination": "YYC",
+    "DepartureDate": "2026-02-01",
+    "ReturnDate": "2026-02-08",
+    "Price": 90.48,
+    "AveragePrice": 142.49
+  }
+]
