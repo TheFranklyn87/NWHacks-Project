@@ -3,15 +3,15 @@
     background: linear-gradient(135deg, #EBF4FF 0%, #E0E7FF 50%, #EDE9FE 100%);
     padding: 3rem 2rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-  
-  .itinerary-header {
+}
+
+.itinerary-header {
     max-width: 900px;
     margin: 0 auto 3rem;
     text-align: center;
-  }
-  
-  .itinerary-header h1 {
+}
+
+.itinerary-header h1 {
     font-size: 3rem;
     font-weight: 800;
     background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%);
@@ -20,16 +20,16 @@
     background-clip: text;
     margin-bottom: 1rem;
     line-height: 1.2;
-  }
-  
-  .trip-dates {
+}
+
+.trip-dates {
     font-size: 1.25rem;
     color: #6B7280;
     font-weight: 500;
     margin-top: 1rem;
-  }
-  
-  .itinerary-content {
+}
+
+.itinerary-content {
     max-width: 900px;
     margin: 0 auto;
     background: white;
@@ -37,80 +37,80 @@
     padding: 3rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     animation: fadeIn 0.6s ease-out;
-  }
-  
-  @keyframes fadeIn {
+}
+
+@keyframes fadeIn {
     from {
-      opacity: 0;
-      transform: translateY(20px);
+        opacity: 0;
+        transform: translateY(20px);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
-  
-  .itinerary-text h1 {
+}
+
+.itinerary-text h1 {
     font-size: 2rem;
     color: #1F2937;
     margin: 2rem 0 1rem;
     font-weight: 700;
-  }
-  
-  .itinerary-text h2 {
+}
+
+.itinerary-text h2 {
     font-size: 1.75rem;
     color: #374151;
     margin: 1.75rem 0 1rem;
     font-weight: 700;
     border-bottom: 2px solid #E5E7EB;
     padding-bottom: 0.5rem;
-  }
-  
-  .itinerary-text h3 {
+}
+
+.itinerary-text h3 {
     font-size: 1.5rem;
     color: #4B5563;
     margin: 1.5rem 0 0.75rem;
     font-weight: 600;
-  }
-  
-  .itinerary-text h4 {
+}
+
+.itinerary-text h4 {
     font-size: 1.125rem;
     color: #6B7280;
     margin: 1rem 0 0.5rem;
     font-weight: 600;
-  }
-  
-  .itinerary-text p {
+}
+
+.itinerary-text p {
     font-size: 1rem;
     line-height: 1.7;
     color: #374151;
     margin: 0.75rem 0;
-  }
-  
-  .itinerary-text li {
+}
+
+.itinerary-text li {
     font-size: 1rem;
     line-height: 1.7;
     color: #374151;
     margin: 0.5rem 0 0.5rem 2rem;
     list-style-type: disc;
-  }
-  
-  .itinerary-text hr {
+}
+
+.itinerary-text hr {
     border: none;
     border-top: 2px solid #E5E7EB;
     margin: 2rem 0;
-  }
-  
-  .itinerary-actions {
+}
+
+.itinerary-actions {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
     padding-top: 2rem;
     border-top: 2px solid #E5E7EB;
-  }
-  
-  .print-button,
-  .copy-button {
+}
+
+.print-button,
+.copy-button {
     flex: 1;
     background: linear-gradient(135deg, #3B82F6 0%, #4F46E5 100%);
     color: white;
@@ -122,70 +122,70 @@
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-  }
-  
-  .print-button:hover,
-  .copy-button:hover {
+}
+
+.print-button:hover,
+.copy-button:hover {
     background: linear-gradient(135deg, #2563EB 0%, #4338CA 100%);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-  }
-  
-  .error-container {
+}
+
+.error-container {
     text-align: center;
     padding: 4rem 2rem;
     max-width: 600px;
     margin: 0 auto;
-  }
-  
-  .error-icon {
+}
+
+.error-icon {
     font-size: 5rem;
     margin-bottom: 2rem;
-  }
-  
-  .error-container h2 {
+}
+
+.error-container h2 {
     font-size: 2rem;
     color: #374151;
     margin-bottom: 1rem;
-  }
-  
-  .error-container p {
+}
+
+.error-container p {
     font-size: 1.125rem;
     color: #6B7280;
     margin-bottom: 2rem;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .itinerary-page {
-      padding: 2rem 1rem;
+        padding: 2rem 1rem;
     }
-  
+
     .itinerary-header h1 {
-      font-size: 2rem;
+        font-size: 2rem;
     }
-  
+
     .itinerary-content {
-      padding: 2rem 1.5rem;
+        padding: 2rem 1.5rem;
     }
-  
+
     .itinerary-actions {
-      flex-direction: column;
+        flex-direction: column;
     }
-  }
-  
-  @media print {
+}
+
+@media print {
     .itinerary-header,
     .back-button,
     .itinerary-actions {
-      display: none;
+        display: none;
     }
-  
+
     .itinerary-page {
-      background: white;
+        background: white;
     }
-  
+
     .itinerary-content {
-      box-shadow: none;
-      padding: 0;
+        box-shadow: none;
+        padding: 0;
     }
-  }
+}

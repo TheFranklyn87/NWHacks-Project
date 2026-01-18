@@ -15,14 +15,14 @@ app.post("/api/itinerary", async (req, res) => {
     const { city, startDate, endDate } = req.body;
   
     if (!city || !startDate || !endDate) {
-      return res.status(400).json({ error: "city, startDate, and endDate are required" });
+        return res.status(400).json({ error: "city, startDate, and endDate are required" });
     }
   
     const start = new Date(startDate);
     const end = new Date(endDate);
   
     if (isNaN(start) || isNaN(end) || end < start) {
-      return res.status(400).json({ error: "Invalid date range" });
+        return res.status(400).json({ error: "Invalid date range" });
     }
   
     const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
