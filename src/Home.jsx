@@ -100,6 +100,7 @@ const CITY_TO_AIRPORT = {
   "yow": "YOW"
 };
 
+
 export default function Home() {
   const [origin, setOrigin] = useState("");
   const [hoveredButton, setHoveredButton] = useState(false);
@@ -111,7 +112,6 @@ export default function Home() {
 
   const handleSubmit = () => {
     if (!origin) { 
-      alert("Please enter your departing city!"); 
       return; 
     }
     
@@ -120,7 +120,7 @@ export default function Home() {
     
     // Check if input matches a city name or is already an airport code
     const airportCode = CITY_TO_AIRPORT[normalizedInput] || origin.toUpperCase();
-    
+
     navigate(`/results/${airportCode}`);
   };
 
