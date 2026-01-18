@@ -1,4 +1,4 @@
-# Flight Finder
+# Travelio
 
 ## Setup
 1. Clone the repo
